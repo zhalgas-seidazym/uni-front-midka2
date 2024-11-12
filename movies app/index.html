@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies App</title>
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <div class="introduction">
+            <h2>Welcome.</h2>
+            <p>Millions of movies. Explore now.</p>
+        </div>
+        <form class="search-form">
+            <input type="text" placeholder="Find movie" class="name-input">
+            <button type="button" class="search-btn btn" type="button" onclick="search()">Search</button>
+            <div class="suggestions">
+                <!-- <div class="suggestion">Film</div>
+                <div class="suggestion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro dolorum quis nihil ea aperiam iure! Vero quisquam sapiente minus vitae error, eveniet possimus nesciunt quos illum soluta eius fugiat unde!</div> -->
+            </div>
+        </form>
+    </header>
+
+    <main>
+        <section class="list-block">
+            <div class="list-block-header">
+                <p>Sort by</p>
+                <select class="sort-select">
+                    <option value="popularity.asc">Popularity (Ascending)</option>
+                    <option value="popularity.desc">Popularity (Descending)</option>
+                    <option value="release_date.asc">Release Date (Ascending)</option>
+                    <option value="release_date.desc">Release Date (Descending)</option>
+                    <option value="rating.asc">Rating (Ascending)</option>
+                    <option value="rating.desc">Rating (Descending)</option>
+                </select>
+                <button type="button" class="watch-list-btn btn" onclick="displayFavorites()">Watch List</button>
+            </div>
+            <div class="list-container">
+                <!-- <div class="film-card">
+                    <button type="button" class="add-watch-list-btn btn"><img src="./img/favorite.svg" alt=""></button>
+                    <img src="./img/film.webp" alt="" class="film-img">
+                    <p class="name">Film Name</p>
+                    <p class="date">7 February 2024</p>
+                </div> -->
+        </section>
+
+        <section class="movie-details">
+            <div class="close-container"><button class="close-btn btn" onclick="closeDetails()">X</button></div>
+            <div class="movie-header">
+                <img src="https://image.tmdb.org/t/p/h632/z42kyMizgDKetejusZgucSQsQ4l.jpg" alt="Need for Speed Poster" class="movie-poster">
+                <h1 class="movie-title"></h1>
+                <p class="movie-tagline"></p>
+            </div>
+        
+            <div class="movie-synopsis">
+                <h2>Synopsis</h2>
+                <p class="synopsis"></p>
+            </div>
+        
+            <div class="movie-info">
+                <h2>Rating & Runtime</h2>
+                <p class="rating"></p>
+                <p class="runtime"></p>
+                <p class="release"></p>
+            </div>
+        
+            <div class="movie-extra-info">
+                <h2>Genres</h2>
+                <div class="bento-container">
+                    <!-- <div class="bento-piece">Action</div>
+                    <div class="bento-piece">Crime</div>
+                    <div class="bento-piece">Drama</div>
+                    <div class="bento-piece">Thriller</div> -->
+                </div>
+        
+                <h2>Production Countries</h2>
+                <div class="bento-container">
+                    <!-- <div class="bento-piece">United States of America</div>
+                    <div class="bento-piece">India</div> -->
+                </div>
+        
+                <h2>Production Companies</h2>
+                <div class="bento-container">
+                    <!-- <div class="bento-piece">DreamWorks Pictures</div>
+                    <div class="bento-piece">Reliance Entertainment</div>
+                    <div class="bento-piece">Bandito Brothers</div>
+                    <div class="bento-piece">Mark Sourian Productions</div>
+                    <div class="bento-piece">John Gatins Productions</div>
+                    <div class="bento-piece">Touchstone Pictures</div>
+                    <div class="bento-piece">Electronic Arts</div> -->
+                </div>
+            </div>
+        
+            <div class="movie-cast-crew">
+                <h2>Cast & Crew</h2>
+                <div class="crew-list">
+                    <!-- <div class="crew-member">
+                        <img src="https://image.tmdb.org/t/p/h632/2ROtesSqxXDT9IszpKkspsHp42O.jpg" alt="Vic Carmen Sonne">
+                        <p class="crew-name">Vic Carmen Sonne</p>
+                        <p class="crew-role">Character: Karoline</p>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>

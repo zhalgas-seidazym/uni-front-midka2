@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Weather App</h1>
+        <form class="search-form">
+            <input class="city-input" type="text" placeholder="Please Enter City Name...">
+            <div class="btn-container">
+                <button type="button" class="search-btn btn">Search</button>
+                <button type="button" class="current-btn btn">Current Weather</button>
+            </div>
+            <div class="temperature-unit-selector">
+                <select name="units" id="units-select">
+                    <option value="metric">Celsius</option>
+                    <option value="standard">Kelvin</option>
+                    <option value="imperial">Fahrenheit</option>
+                </select>
+            </div>
+        </form>
+    </header>
+
+    <main>
+        <section class="weather-container">
+            <div class="weather-top">
+                <img src="./img/location.png" alt="Location Icon" class="location-icon">
+                <span class="location-text"></span>
+            </div>
+            <div class="weather-body">
+                <div class="left-side">
+                    <img src="" alt="Weather Condition" class="weather-icon">
+                    <span class="weather-description"></span>
+                </div>
+                <div class="right-side">
+                    <div class="weather-stat">
+                        <label>Temperature:</label>
+                        <span class="temperature-value"></span>
+                    </div>
+                    <div class="weather-stat">
+                        <label>Feels Like:</label>
+                        <span class="feels-like-value"></span>
+                    </div>
+                    <div class="weather-stat">
+                        <label>Humidity:</label>
+                        <span class="humidity-value"></span>
+                    </div>
+                    <div class="weather-stat">
+                        <label>Wind Speed:</label>
+                        <span class="wind-speed-value"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="five-days-container">
+            <div class="day">
+                <div class="date"></div>
+                <img src="https://openweathermap.org/img/wn/04n@4x.png" alt="Weather Icon" class="weather-icon">
+                <div class="temperatures">
+                    <span class="high">15°C</span>
+                    <span class="low">15°C</span>
+                </div>
+                <div class="description">Partly Cloudy</div>
+            </div>
+            <div class="day">
+                <div class="date"></div>
+                <img src="https://openweathermap.org/img/wn/04n@4x.png" alt="Weather Icon" class="weather-icon">
+                <div class="temperatures">
+                    <span class="high">15°C</span>
+                    <span class="low">15°C</span>
+                </div>
+                <div class="description">Rainy</div>
+            </div>
+            <div class="day">
+                <div class="date"></div>
+                <img src="https://openweathermap.org/img/wn/04n@4x.png" alt="Weather Icon" class="weather-icon">
+                <div class="temperatures">
+                    <span class="high">15°C</span>
+                    <span class="low">15°C</span>
+                </div>
+                <div class="description">Cloudy</div>
+            </div>
+            <div class="day">
+                <div class="date"></div>
+                <img src="https://openweathermap.org/img/wn/04n@4x.png" alt="Weather Icon" class="weather-icon">
+                <div class="temperatures">
+                    <span class="high">15°C</span>
+                    <span class="low">15°C</span>
+                </div>
+                <div class="description">Sunny</div>
+            </div>
+            <div class="day">
+                <div class="date"></div>
+                <img src="https://openweathermap.org/img/wn/04n@4x.png" alt="Weather Icon" class="weather-icon">
+                <div class="temperatures">
+                    <span class="high">15°C</span>
+                    <span class="low">15°C</span>
+                </div>
+                <div class="description">Windy</div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOgOfewjfgj2fOL1IJcQPVarKVaD7fdO0&libraries=places&language=en" type="text/javascript"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', serif;
+    font-weight: 400;
+    height: 150vh;
+}
+
+header{
+    width: 80%;
+    height: 200px;
+    background-image: url('./img/got.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.introduction{
+    width: 60%;
+}
+
+header h2{
+    font-weight: 500;
+    font-size: 40px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+header p{
+    font-weight: 500;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+.search-form{
+    width: 70%;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+input[type='text']{
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    width: 80%;
+}
+
+.btn{
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: linear-gradient(to right, #333333, #444444, #555555);
+    padding: 10px 15px;
+    color: white;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.btn:hover{
+    color: #aaaaaa;
+}
+
+.suggestions{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    width: 90%;
+    bottom: 0px;
+    left: 50%;
+    border-radius: 0px 0px 15px 15px;
+    overflow: hidden;
+    transform: translate(-50%, 100%);
+    z-index: 500;
+}
+
+.suggestion{
+    background-color: #aaaaaa;
+    border-bottom: 1px solid #555555;
+    padding: 10px 15px;
+}
+
+.suggestion:last-child{
+    border-bottom: none;
+}
+
+.suggestion:hover{
+    background-color: #555555;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.list-block{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.list-block-header{
+    width: 90%;
+    display: flex;
+    gap: 15px;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.list-block-header p{
+    color: rgba(0, 0, 0, 0.771);
+    font-size: 25px;
+    text-wrap: nowrap;
+}
+
+.sort-select{
+    color: rgba(0, 0, 0, 0.771);
+    padding: 10px 15px;
+    border-radius: 15px;
+    outline: none;
+}
+
+.watch-list-btn{
+    color: rgba(0, 0, 0, 0.771);
+    background-color: white;
+    border: 1px solid black;
+    background: transparent;
+}
+
+.watch-list-btn:hover{
+    border-color: rgba(0, 0, 0, 0.562);
+    color: rgba(0, 0, 0, 0.501);
+}
+
+.list-container{
+    width: 100%;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.film-card{
+    max-width: 300px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: .3s;
+    position: relative;
+    cursor: pointer;
+}
+
+.add-watch-list-btn{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    background-color: #aaaaaa;
+    z-index: 100;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.favorite{
+    background-color: rgb(0, 159, 0);
+}
+
+.favorite:hover{
+    background-color: green;
+}
+
+.add-watch-list-btn:hover{
+    background-color: #cfcfcf;
+}
+
+.add-watch-list-btn img{
+    width: 15px;
+}
+
+.film-card .film-img{
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.film-card .name{
+    font-size: 18px;
+    transition: .3s;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.film-card .date{
+    font-size: 15px;
+    color: rgba(0,0,0,.6);
+    margin-bottom: 10px;
+    transition: .3s;
+    text-align: center;
+    margin-top: auto;
+}
+
+.film-card:hover{
+    background-color: #cfcfcf;
+}
+
+.film-card:hover .date, .film-card:hover .name{
+    color: rgb(72, 72, 72);
+}
+
+
+.movie-details {
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+    color: #333;
+    position: absolute;
+    background-color: #cfcfcf;
+    height: 800px;
+    overflow-y: scroll;
+    z-index: 10000;
+    padding: 20px;
+    display: none;
+}
+
+.close-container{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+
+.close-btn{
+    background-color: #666;
+    transition: .3s;
+}
+
+.movie-header {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.movie-poster {
+    width: 70%;
+    border-radius: 8px;
+}
+
+.movie-title {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.movie-tagline {
+    font-style: italic;
+    color: #666;
+}
+
+.movie-synopsis,
+.movie-info,
+.movie-extra-info,
+.movie-cast-crew {
+    margin-bottom: 20px;
+}
+
+.movie-details h2{
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.movie-info p {
+    margin: 5px 0;
+}
+
+strong{
+    font-weight: 500;
+}
+
+.bento-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.bento-piece {
+    background-color: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #333;
+}
+
+.movie-cast-crew .crew-list {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.crew-member {
+    min-width: 120px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.crew-member img {
+    max-width: 100px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+}
+
+.crew-name {
+    font-weight: bold;
+}
+
+.crew-role {
+    color: #666;
+    font-size: 0.9em;
+}
+
+
+
+
+
+
+@media (max-width: 1400px) {
+    header{
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .list-block-header p{
+        font-size: 16px;
+    }
+
+    .sort-select{
+        padding: 5px 10px;
+    }
+
+    .list-block-header{
+        gap: 10px;
+    }
+}
+
+@media (max-width: 370px) {
+    header{
+        height: 220px;
+    }
+}
