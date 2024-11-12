@@ -1,23 +1,30 @@
 const baseUrl = 'https://api.openweathermap.org/data/2.5/'
 const apiKey = '45fffa8ab884e1f5a78adb3581c2b225'
 
+/* values of temperature type that change when select changes */
 let tempType = 'metric'
 let tempIcon = '°C'
 
+/* need elements from html */
 const cityInput = document.querySelector('.city-input')
 const weatherTop = document.querySelector('.weather-top')
 const weatherBody = document.querySelector('.weather-body')
 
+/* when screen loads it puts */
 window.onload = function(){
+    /* google autocomplete adding to cityname inout */
     new google.maps.places.Autocomplete(document.querySelector('.city-input'), { types: ['(cities)']})
+    /* calls function for sending current position to search by position function */
     currentWeather()
 }
 
+/* temperature type changer function caller listener that will call search by location class tag value function */
 document.getElementById('units-select').addEventListener('change', function() {
     updateTemperatureVariables(this.value)
     searchByName(weatherTop.querySelector('.location-text').innerText)
 })
 
+/* if input is empty then puts and removes animation class from button */
 document.querySelector('.search-btn').addEventListener('click', function(){
     if(cityInput.value != ''){
         searchByName(cityInput.value)
@@ -30,10 +37,12 @@ document.querySelector('.search-btn').addEventListener('click', function(){
     }
 })
 
+/* current weather function caller when btn clicked */
 document.querySelector('.current-btn').addEventListener('click', function(){
     currentWeather()
 })
 
+/* when enter key pressed in inout it sends value to search by name function */
 cityInput.addEventListener('keydown', function(event){
     if(event.key == "Enter"){
         event.preventDefault()
@@ -41,6 +50,7 @@ cityInput.addEventListener('keydown', function(event){
     }
 })
 
+/* calls success function if getting location is allowed */
 function currentWeather(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error)
@@ -49,7 +59,7 @@ function currentWeather(){
     }
 }
 
-
+/* calls search by position function by got postion */
 function success(position) {
     searchByPos(position.coords.latitude, position.coords.longitude)
 }
@@ -58,6 +68,7 @@ function error(err) {
     console.error('Error occurred: ', err.message);   
 }
 
+/* gets weather for position and by temperature type and sends response to display functions */
 async function searchByPos(lat, long) {
     let curWeather = await fetch(`${baseUrl}weather?appid=${apiKey}&lat=${lat}&lon=${long}&units=${tempType}`)
     curWeather = await curWeather.json() 
@@ -66,7 +77,7 @@ async function searchByPos(lat, long) {
     futureWeather = await futureWeather.json()
     displayForFuture(futureWeather)
 }
-
+/* same search function but uses name instead of coordinates */
 async function searchByName(name) {
     let curWeather = await fetch(`${baseUrl}weather?appid=${apiKey}&q=${name}&units=${tempType}`)
     curWeather = await curWeather.json() 
@@ -76,6 +87,7 @@ async function searchByName(name) {
     displayForFuture(futureWeather)
 }
 
+/* displays weather current */
 function displayWeather(curWeather){
     cityInput.value = ''
     weatherTop.querySelector('.location-text').innerHTML = curWeather.name
@@ -87,12 +99,14 @@ function displayWeather(curWeather){
     weatherBody.querySelector('.wind-speed-value').innerText = curWeather.wind.speed + "m/s"
 }
 
+/* displays weather for five days */
 function displayForFuture(futureWeather){
     let curDate = new Date()
 
     const days = document.querySelectorAll('.day')
     days.forEach(day => {
         day.querySelector('.date').innerText = curDate.toLocaleDateString('en-US', { weekday: 'long' })
+        /* extracting data by function for finding day of week, most popular temperature icon for one day, finding max and min temp, and most popular description of day */
         let dayData = findDayData(curDate, futureWeather)
         day.querySelector('.high').innerHTML = dayData.maxTemperature + tempIcon
         day.querySelector('.low').innerHTML = dayData.minTemperature + tempIcon
@@ -102,12 +116,14 @@ function displayForFuture(futureWeather){
     })
 }
 
+/* this function is used in some rows where i need to capitalize each word */
 function capitalizeFirstLetter(str){
     return str.replace(/\b(\w)/g, function(match) {
         return match.toUpperCase()
     })
 }
 
+/* function for changing temperature types when select changed */
 function updateTemperatureVariables(selectedValue) {
     if (selectedValue === 'metric') {
         tempType = 'metric'
@@ -121,6 +137,7 @@ function updateTemperatureVariables(selectedValue) {
     }
 }
 
+/* function for finding day of week, most popular temperature icon for one day, finding max and min temp, and most popular description of day */
 function findDayData(curDate, data) {
     const targetDate = curDate.getDate()
     let maxTemp = -Infinity;

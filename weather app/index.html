@@ -9,6 +9,7 @@
 </head>
 <body>
     <header>
+        <!-- header that contains input for searching and buttons for search and current place weather, and type of temperature select -->
         <h1>Weather App</h1>
         <form class="search-form">
             <input class="city-input" type="text" placeholder="Please Enter City Name...">
@@ -26,7 +27,9 @@
         </form>
     </header>
 
+    <!-- diplays weather section -->
     <main>
+        <!-- displays current weather section -->
         <section class="weather-container">
             <div class="weather-top">
                 <img src="./img/location.png" alt="Location Icon" class="location-icon">
@@ -58,6 +61,7 @@
             </div>
         </section>
 
+        <!-- displays weather for five days -->
         <section class="five-days-container">
             <div class="day">
                 <div class="date"></div>
@@ -108,6 +112,7 @@
         
     </main>
 
+    <!-- this is for google autocomplete adding -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOgOfewjfgj2fOL1IJcQPVarKVaD7fdO0&libraries=places&language=en" type="text/javascript"></script>
     <script src="script.js"></script>
 </body>

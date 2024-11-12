@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+/* setting font family */
 body{
     display: flex;
     flex-direction: column;
@@ -10,6 +11,7 @@ body{
     background-color: #f1f1f1;
 }
 
+/* put in column and centers, background image cover norepeat */
 header{
     width: 100%;
     height: 300px;
@@ -70,6 +72,7 @@ input[type='text']{
     opacity: 0.7;
 }   
 
+/* animation for incorrect clicking button */
 @keyframes shake {
     0%, 100% {
         transform: translateX(0);
@@ -82,6 +85,7 @@ input[type='text']{
     }
 }
 
+/* class for animation */
 .btn-animate{
     border-color: red;
     animation: shake 1s;
@@ -102,6 +106,7 @@ input[type='text']{
     outline: none;
 }
 
+/* displays current and for five days in one row and wraps if not fit in */
 main{
     width: 90%;
     margin-top: 50px;
@@ -113,6 +118,7 @@ main{
     gap: 20px;
 }
 
+/* puts in middle and column */
 .weather-container{
     width: 40%;
     padding: 15px 0;
@@ -126,6 +132,7 @@ main{
     color: black;
 }
 
+/* top of cur weather */
 .weather-top{
     display: flex;
     align-items: center;
@@ -138,6 +145,7 @@ main{
     width: 25px;
 }
 
+/* body cur weather, center vertical and in two ends horizontal */
 .weather-body{
     width: 100%;
     display: flex;
@@ -145,6 +153,7 @@ main{
     justify-content: space-between;
 }
 
+/* puts condition and image in column and centers */
 .left-side{
     width: 40%;
     display: flex;
@@ -157,6 +166,7 @@ main{
     width: 100%;
 }
 
+/* puts in column and ceters */
 .right-side{
     width: 60%;
     display: flex;
@@ -173,6 +183,7 @@ main{
     font-weight: 500;
 }
 
+/* scrollable container for five days weather, puts in one row */
 .five-days-container{
     width: 50%;
     min-width: 260px;
@@ -182,6 +193,7 @@ main{
     overflow-x: scroll;
 }
 
+/* puts in column and centers */
 .day{
     display: flex;
     flex-direction: column;
@@ -221,6 +233,7 @@ main{
     margin-bottom: 20px;
 }
 
+/* changes width for cur weather and five days weather when they are wrapped down into two rows */
 @media (max-width: 644px) {
     main{
         width: 95%;
