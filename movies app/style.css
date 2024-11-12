@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+/* puts blocks in middle and setting font */
 body{
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: 'Roboto', serif;
     font-weight: 400;
-    height: 150vh;
 }
 
+/* puts elements in column and in middle */
 header{
     width: 80%;
     height: 200px;
@@ -39,6 +40,7 @@ header p{
     margin-bottom: 15px;
 }
 
+/* putting input and button in one line */
 .search-form{
     width: 70%;
     background-color: white;
@@ -72,6 +74,7 @@ input[type='text']{
     color: #aaaaaa;
 }
 
+/* puts suggestions in column and displays absolute position in bottom of form */
 .suggestions{
     display: none;
     flex-direction: column;
@@ -99,6 +102,7 @@ input[type='text']{
     background-color: #555555;
 }
 
+/* puts in middle horizontal */
 main{
     display: flex;
     flex-direction: column;
@@ -106,6 +110,7 @@ main{
     width: 100%;
 }
 
+/* puts in column and in middle */
 .list-block{
     width: 80%;
     display: flex;
@@ -170,6 +175,7 @@ main{
     cursor: pointer;
 }
 
+/* puts btn in top right side pos absolute */
 .add-watch-list-btn{
     position: absolute;
     width: 20px;
@@ -232,7 +238,7 @@ main{
     color: rgb(72, 72, 72);
 }
 
-
+/* displays pos absolute in middle of screen */
 .movie-details {
     border-radius: 15px;
     max-width: 600px;
@@ -350,7 +356,7 @@ strong{
 
 
 
-
+/* to change size of header and others */
 @media (max-width: 1400px) {
     header{
         width: 100%;

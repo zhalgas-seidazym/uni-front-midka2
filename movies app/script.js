@@ -1,19 +1,23 @@
 const baseUrl = 'https://api.themoviedb.org/3/'
 const apiKey = 'b54bbc6e8629b31995720b12b38f65b9'
 
+/* movies will contain current seeing movies and favorites gets data from local storage */
 let movies = []
-let favorites = JSON.parse(localStorage.getItem('favoriteFilms')) || []
+let favorites = JSON.parse(localStorage.getItem('favoriteFilms')) || [] /* initializing */
 
+/* need elements from html */
 const input = document.querySelector('.name-input')
 const suggestions = document.querySelector('.suggestions')
 const select = document.querySelector('.sort-select')
 const details = document.querySelector('.movie-details')
 
+/* when page is loaded first initializes favorites in local storage if need and then displays favorites */
 window.onload = async () => {
     !localStorage.getItem('favoriteFilms') ? localStorage.setItem('favoriteFilms', JSON.stringify([])) : 
     displayFavorites()
 }
 
+/* when details section is open and clicked other place detail page will close */
 document.addEventListener('mousedown', (event) => {
     var detailInfoContainer = document.querySelector('.movie-details')
 
@@ -22,17 +26,21 @@ document.addEventListener('mousedown', (event) => {
     }
 })
 
+/* this is for displaying autocomples */
 input.addEventListener('input', async () => {
     if(input.value.length >= 3){
+        /* here is length is more than 2 i send request to server to take films that contains this value */
         suggestions.innerHTML = ''
         let sugs = await fetch(`${baseUrl}search/movie?api_key=${apiKey}&query=${input.value}`)
         sugs = await sugs.json()
+        /* and here added suggestions to suggestions class tag */
         sugs.results.forEach(result => {
             const suggestion = document.createElement('div')
             suggestion.className = 'suggestion'
             suggestion.innerText = result.title
             suggestions.appendChild(suggestion)
 
+            /* here listener for every suggestion that will put value of this to input value and call search function */
             suggestion.addEventListener('click', (event) => {
                 input.value = event.target.innerText
                 suggestions.innerHTML = ''
@@ -42,6 +50,7 @@ input.addEventListener('input', async () => {
     }
 })
 
+/* listener for input clicked enter that will hide suggestions and call function search */
 input.addEventListener('keydown', (event) => {
     if(event.key == "Enter"){
         event.preventDefault()
@@ -51,11 +60,13 @@ input.addEventListener('keydown', (event) => {
     }
 })
 
+/* when value of select changes firstly done sort for movies array that contains current showing movies and then display it sorted order */
 select.addEventListener('change', () => {
     sort()
     displayMovieList()
 })
 
+/* this two listeners for suggestions hide and show when focusing input */
 input.addEventListener('focus', () => {
     suggestions.style.display = 'flex'
 })
@@ -67,6 +78,7 @@ input.addEventListener('blur', () => {
     }, 150)
 })
 
+/* this function for adding and deleting from favorites and updating local storage favorites value */
 function toggleToFavorites(movie){
     const index = favoritesIndexOfMovie(movie)
     
@@ -78,14 +90,17 @@ function toggleToFavorites(movie){
     localStorage.setItem('favoriteFilms', JSON.stringify(favorites))
 }
 
+/* this function is for checking that movie is in favorites or not */
 function favoritesIncludeMovie(movie){
     return favorites.some(item => item.id === movie.id)
 }
 
+/* this function is for giving index of movie if it is in favorites */
 function favoritesIndexOfMovie(movie){
     return favorites.findIndex(item => item.id === movie.id)
 }
 
+/* in this function we get data from api, put it into current movies sorting it and then calling display function */
 async function search(){
     movies = await fetch(`${baseUrl}search/movie?api_key=${apiKey}&query=${input.value}`)
     movies = await movies.json()
@@ -94,6 +109,7 @@ async function search(){
     displayMovieList()
 }
 
+/* this function sets favorites into current movies, sorting it and diplaying */
 function displayFavorites(){
     movies = [...favorites]
     input.value = ''
@@ -101,13 +117,16 @@ function displayFavorites(){
     displayMovieList()
 }
 
+/* this function sorts movies by value of select */
 function sort(){
+    /* this two if for popularity sort */
     if(select.value == 'popularity.asc'){
         movies.sort((a, b) => a.popularity - b.popularity)
     }
     else if(select.value == 'popularity.desc'){
         movies.sort((a, b) => b.popularity - a.popularity)
     }
+    /* this two for sorting by date */
     else if (select.value == 'release_date.asc') {
         movies.sort((a, b) => {    
             if (!a.release_date) return 1
@@ -124,6 +143,7 @@ function sort(){
             return new Date(b.release_date) - new Date(a.release_date)
         })
     }
+    /* this two for sorting by rating */
     else if(select.value == 'rating.asc'){
         movies.sort((a, b) => a.vote_average - b.vote_average)
     }
@@ -132,6 +152,7 @@ function sort(){
     }
 }
 
+/* here displaying in screen */
 function displayMovieList() {
     const container = document.querySelector('.list-container')
     container.innerHTML = ''
@@ -146,7 +167,7 @@ function displayMovieList() {
         const filmCard = document.createElement('div')
         filmCard.classList.add('film-card')
         filmCard.dataset.id = movie.id
-
+        /* listener for movie card to see detail section */
         filmCard.addEventListener('click', () => {
             displayDetails(movie.id)
         })
@@ -154,11 +175,13 @@ function displayMovieList() {
         const watchlistButton = document.createElement('button')
         watchlistButton.type = 'button'
         watchlistButton.classList.add('add-watch-list-btn', 'btn')
+        /* here when displaying card checking if it in favorites and adding relevant class */
         if(favoritesIncludeMovie(movie)) {
             watchlistButton.classList.add('favorite')
         }
+        /* here adding listener to button to add or remove from favorite */
         watchlistButton.addEventListener('click', function(event) {
-            event.stopPropagation()
+            event.stopPropagation() /* prevents clicking card when clicking button */
             toggleToFavorites(movie)
             watchlistButton.classList.toggle('favorite')
         })
@@ -195,7 +218,9 @@ function displayMovieList() {
     })
 }
 
+/* this function for displaying detailed movie informations */
 async function displayDetails(id){
+    /* taking informtaion about film */
     let res = await fetch(`${baseUrl}movie/${id}?api_key=${apiKey}`)
     res = await res.json()
 
@@ -272,9 +297,11 @@ async function displayDetails(id){
         extraInfo[2].appendChild(companyDiv)
     })
 
+    /* getting actors and other people information */
     res = await fetch(`${baseUrl}movie/${id}/credits?api_key=${apiKey}`)
     res = await res.json()
 
+    /* dipslaying it */
     const crewList = details.querySelector('.crew-list')
     res.cast.forEach(act => {
         const crewMember = document.createElement('div')
@@ -297,6 +324,7 @@ async function displayDetails(id){
     })
 }
 
+/* function for closing detail section */
 function closeDetails(){
     details.style.display = 'none'
 }
