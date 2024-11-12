@@ -1,14 +1,17 @@
 const baseUrl = 'https://api.spoonacular.com/recipes/'
 const apiKey = 'af37fbd907a041008b2a775fdfe5d271'
 
+/* initializes favorites */
 let favorites = JSON.parse(localStorage.getItem('favorites')) || []
 
+/* need elements */
 const nameInput = document.querySelector('.name-input')
 const ingredientsInput = document.querySelector('.ingredients-input')
 const suggestions = document.querySelector('.suggestions')
 const recipesContainer = document.querySelector('.recipes-container')
 const detailInfoContainer = document.querySelector('.detail-info-container')
 
+/* listener for clicking in other place than detail section and closing it if */
 document.addEventListener('mousedown', (event) => {
     var detailInfoContainer = document.querySelector('.detail-info-container')
 
@@ -17,18 +20,22 @@ document.addEventListener('mousedown', (event) => {
     }
 })
 
+/* listener for enter key in name input and search if done */
 nameInput.addEventListener('keydown', (event) => {
     if(event.key == 'Enter') search()
 })
 
+/* like in name input */
 ingredientsInput.addEventListener('keydown', (event) => {
     if(event.key == 'Enter') search()
 })
 
+/* displaying suggestions when focusiing in name input */
 nameInput.addEventListener('focus', () => {
     suggestions.style.display = 'block'
 })
 
+/* hiding it if not */
 nameInput.addEventListener('blur', () => {
     setTimeout(() => {
         suggestions.innerHTML = ''
@@ -36,15 +43,18 @@ nameInput.addEventListener('blur', () => {
     }, 150)
 })
 
+/* if length of value of name input is more than 3 then call suggestions show function */
 nameInput.addEventListener('input', () => {
     if(nameInput.value.length >= 3) displayAutoComplete()
 })
 
+/* when window loaded initialize favorites in local storage if does not exist and call function for displaying favorites */
 window.onload = async () => {
     !localStorage.getItem('favorites') ? localStorage.setItem('favorites', JSON.stringify([])) : 
     displayFavorites()
 }
 
+/* function for getting data from api with input values, cleaning list container and calling displayRecipe function for every item */
 async function search() {
     let response = await fetch(`${baseUrl}complexSearch?apiKey=${apiKey}&number=20&includeIngredients=${ingredientsInput.value}&titleMatch=${nameInput.value}`)
     response = await response.json()
@@ -55,12 +65,14 @@ async function search() {
     })
 }
 
+/* function for getting detailed information by id for recipe and calling show detailed section function */
 async function detailInfo(id){
     let response = await fetch(`${baseUrl}${id}/information?apiKey=${apiKey}&includeNutrition=true`)
     response = await response.json()
     displayDetailInfo( response)
 }
 
+/* adding or deleting from favorites and updating local storage */
 function toggleToFavorites(recipe){
     const index = favoritesIndexOfRecipe(recipe)
     
@@ -72,14 +84,17 @@ function toggleToFavorites(recipe){
     localStorage.setItem('favorites', JSON.stringify(favorites))
 }
 
+/* checking if favorites contain recipe */
 function favoritesIncludeRecipe(recipe){
     return favorites.some(item => item.id === recipe.id)
 }
 
+/* getting index of recipe if it in favorites */
 function favoritesIndexOfRecipe(recipe){
     return favorites.findIndex(item => item.id === recipe.id)
 }
 
+/* displaying favorites by sending favorite items one by one to display function and cleaning inputs and container for displaying recipes */
 function displayFavorites(){
     nameInput.value = ''
     ingredientsInput.value = ''
@@ -89,6 +104,7 @@ function displayFavorites(){
     })
 }
 
+/* displaying function for recipe and adding it to recipe list container */
 function displayRecipe(recipe){
     const recipeCard = document.createElement('div')
     recipeCard.className = 'recipe'
@@ -113,7 +129,9 @@ function displayRecipe(recipe){
 
     const favBtn = document.createElement('button')
     favBtn.className = 'favorites-btn btn'
+    /* checking recipe if it in favorites and setting relevant class for this */
     if(favoritesIncludeRecipe(recipe)) favBtn.classList.add('favorite')
+    /* listener for button to adding or deleting from favorites */
     favBtn.onclick = function() {
         toggleToFavorites(recipe)
         this.classList.toggle('favorite')
@@ -135,7 +153,7 @@ function displayRecipe(recipe){
     favBtn.appendChild(favIcon)
 }
 
-
+/* detail info section displayer */
 function displayDetailInfo(recipe) {
     detailInfoContainer.style.display = 'block'
 
@@ -146,7 +164,7 @@ function displayDetailInfo(recipe) {
     const closeButton = document.createElement('button')
     closeButton.className = 'btn'
     closeButton.textContent = 'X'
-    closeButton.onclick = () => hideDetailInfo()
+    closeButton.onclick = () => hideDetailInfo() /* setting detail section close function onlick */
     header.appendChild(title)
     header.appendChild(closeButton)
 
@@ -175,6 +193,7 @@ function displayDetailInfo(recipe) {
     const ingredientsList = document.createElement('ul')
     ingredientsList.className = 'ingredients-list'
     recipe.extendedIngredients.forEach(ing => {
+        /* displaying items of ingredients */
         const li = document.createElement('li')
         li.textContent = ing.original
         ingredientsList.appendChild(li)
@@ -184,6 +203,7 @@ function displayDetailInfo(recipe) {
     instructionsHeader.textContent = 'Cooking Instructions'
     const instructionsList = document.createElement('ol')
     instructionsList.className = 'instructions-list'
+    /* displaying steps */
     recipe.analyzedInstructions[0].steps.forEach(step => {
         const li = document.createElement('li')
         li.textContent = step.number + ") " + step.step
@@ -194,6 +214,7 @@ function displayDetailInfo(recipe) {
     nutritionHeader.textContent = 'Nutritional Information'
     const nutritionList = document.createElement('ul')
     nutritionList.className = 'nutritional-info'
+    /* displaying nutrients items */
     recipe.nutrition.nutrients.forEach(nutrient => {
         const li = document.createElement('li')
         li.innerHTML = `<strong>${nutrient.name}:</strong> ${nutrient.amount} ${nutrient.unit}`
@@ -212,16 +233,20 @@ function displayDetailInfo(recipe) {
     detailInfoContainer.appendChild(nutritionList)
 }
 
+/* hide fetail info section function */
 function hideDetailInfo(){
     detailInfoContainer.innerHTML = ''
     detailInfoContainer.style.display = 'none'
 }
 
+/* function for setting suggests into suggestions class tag */
 async function displayAutoComplete(){
     suggestions.innerHTML = ''
+    /* request for autocomplete endpoint of api */
     let response = await fetch(`${baseUrl}autocomplete?apiKey=${apiKey}&number=5&query=${nameInput.value}`)
     response = await response.json()
 
+    /* displaying every suggestion from api */
     response.forEach(item => {
         const suggestion = document.createElement('div')
         suggestion.className = 'suggestion'
@@ -229,6 +254,7 @@ async function displayAutoComplete(){
         
         suggestions.appendChild(suggestion)
 
+        /* listener for suggestion when click puts value into name input and calls search function and clear suggestions class tag */
         suggestion.addEventListener('click', function(){
             nameInput.value = this.innerHTML
             suggestions.innerHTML = ''

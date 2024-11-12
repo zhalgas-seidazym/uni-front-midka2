@@ -7,6 +7,7 @@ body {
     color: #333;
 }
 
+/*  */
 header {
     background-color: #fff;
     padding: 10px 20px;
@@ -21,6 +22,7 @@ h1 {
     font-weight: 500;
 }
 
+/* for putting elements in one row and if does not fit in wrap to under */
 .search-form {
     display: flex;
     justify-content: center;
@@ -68,6 +70,7 @@ input[type="text"]:focus{
     height: 20px;
 }
 
+/* suggestions position absolute and dsiplaying in column */
 .suggestions {
     display: none;
     background: white;
@@ -91,7 +94,7 @@ input[type="text"]:focus{
 }
 
 
-
+/* putting in middle and column */
 main{
     margin-top: 50px;
     display: flex;
@@ -100,9 +103,11 @@ main{
     justify-content: start;
 }
 
+/* grid layout and put below if not fit in */
 .recipes-container {
     width: 90%;
     display: grid;
+    /* repeats and autofills minsize 250px and max 1fr */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
@@ -139,6 +144,7 @@ p {
     margin-top: auto;
 }
 
+/* position absolute displays in middle of page */
 .detail-info-container {
     display: none;
     position: absolute;
@@ -186,6 +192,7 @@ p {
     padding: 5px 0;
 }
 
+/* displaying items in column */
 ul{
     display: flex;
     flex-direction: column;

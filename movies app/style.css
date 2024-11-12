@@ -154,6 +154,7 @@ main{
     color: rgba(0, 0, 0, 0.501);
 }
 
+/* grid layout, if not fit in wrap to under */
 .list-container{
     width: 100%;
     margin-top: 20px;
