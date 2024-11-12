@@ -104,6 +104,7 @@ input[type='text']{
     border-radius: 8px;
     padding: 5px 15px;
     outline: none;
+    color: white;
 }
 
 /* displays current and for five days in one row and wraps if not fit in */
